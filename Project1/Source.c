@@ -34,18 +34,16 @@ main()
 		fseek(file, 0, SEEK_SET);
 		if (bool == 1) {
 			fscanf(file, "%s\n%s\n%s", &a, &b, &c);
-			printf("a = %s\nb = %s\nc = %s", a, b, c);
 		}
 		else
 		{
 			fscanf(file, "%s %s %s", &a, &b, &c);
-			printf("a = %s\nb = %s\nc = %s", a, b, c);
 		}
 
 	}
 	char koef[50];
-	snprintf(koef, sizeof koef, "%s%s%s%s", a, b,c, ";answer.txt");
-	CreateProcess(L"C:\\Users\\ермолаевас\\source\\repos\\Project1\\x64\\Debug\\Project2.exe",&koef,NULL, NULL, FALSE, NULL, NULL, NULL, &si, &pi);
+	snprintf(koef, sizeof koef, "%s%c%s%c%s%c%s%c", a,';', b, ';', c, ';', "answer.txt",';');
+	int bo = CreateProcessA("C:\\Users\\ермолаевас\\source\\repos\\Project1\\x64\\Debug\\Project2.exe",&koef,NULL, NULL, FALSE, NULL, NULL, NULL, &si, &pi);
 	WaitForSingleObject(pi.hProcess, INFINITE);
 	DWORD dwCode;
 	GetExitCodeProcess(pi.hProcess, &dwCode);
