@@ -41,11 +41,20 @@ main()
 		}
 
 	}
-	char koef[50];
-	snprintf(koef, sizeof koef, "%s%c%s%c%s%c%s%c", a,';', b, ';', c, ';', "answer.txt",';');
-	int bo = CreateProcessA("C:\\Users\\ермолаевас\\source\\repos\\Project1\\x64\\Debug\\Project2.exe",&koef,NULL, NULL, FALSE, NULL, NULL, NULL, &si, &pi);
+	char* koef = malloc(50);
+	snprintf(koef, 50, "%s%c%s%c%s%c%s%c", a, ';', b, ';', c, ';', "answer.txt", ';');
+	int bo = CreateProcessA("..\\x64\\Debug\\Project2.exe", koef, NULL, NULL, FALSE, NULL, NULL, NULL, &si, &pi);
 	WaitForSingleObject(pi.hProcess, INFINITE);
 	DWORD dwCode;
 	GetExitCodeProcess(pi.hProcess, &dwCode);
-	return 0;
+
+	if (dwCode == 1) {
+		HANDLE file = fopen("answer.txt","r");
+		char text[256];
+		while ((fgets(text, 256, file)) != NULL)
+		{
+			printf("%s", text);
+		};
+	}
+	return dwCode;
 }
